@@ -1,18 +1,21 @@
-name: Docker Image CI
-
+name: Devops SonarQube Analysis
+ 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    branches:
+      - main
+ 
 jobs:
-
-  build:
-
+  sonar:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout Code
+        uses: actions/checkout@v3
+ 
+      - name: Run SonarScanner
+        run: |
+         sonar-scanner \
+            -Dsonar.projectKey=python \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://13.232.4.242:9092 \
+            -Dsonar.login=sqp_547b8e507eb3f98c5075dacbc1e7845781bd3b19
