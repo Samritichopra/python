@@ -42,7 +42,7 @@ jobs:
           echo "IMAGE_TAG=${COMMIT_HASH}_${TIMESTAMP}" >> $GITHUB_ENV
       - name: Build Docker Image
         run: |
-          IMAGE_NAME=samritichopra1909/sam_flask:v1
+          IMAGE_NAME=sachindabhade1905/sonarqube-dockerhub-trivy-pipeline:${IMAGE_TAG}
           echo "Building Docker image with tag $IMAGE_NAME"
           docker build . --file Dockerfile --tag $IMAGE_NAME
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
@@ -62,3 +62,4 @@ jobs:
         run: |
           docker push ${{ env.IMAGE_NAME }}
           echo "✅ Docker image pushed: ${{ env.IMAGE_NAME }}"
+
